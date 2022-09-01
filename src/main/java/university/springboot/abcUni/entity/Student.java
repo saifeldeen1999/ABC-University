@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student")
+@Table(name="student", schema = "abc_university_db")
 public class Student {
 	
 	@Id
@@ -36,8 +36,7 @@ public class Student {
 	@JoinTable(
 			name="course_student",
 			joinColumns=@JoinColumn(name="student_id"),
-			inverseJoinColumns=@JoinColumn(name="course_id")
-			)
+			inverseJoinColumns=@JoinColumn(name="course_id"))
 	private List<Course> courses;
 	
 	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
@@ -88,6 +87,5 @@ public class Student {
 	public String toString() {
 		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
-	
 	
 }

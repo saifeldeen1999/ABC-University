@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import university.springboot.abcUni.dao.StudentDAO;
 import university.springboot.abcUni.entity.Student;
@@ -19,23 +20,26 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
+	@Transactional
 	public List<Student> findAll() {
 		return studentDAO.findAll();
 	}
 
 	@Override
+	@Transactional
 	public Student findById(int theId) {
-		// TODO Auto-generated method stub
 		return studentDAO.findById(theId);
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(int theId) {
 		studentDAO.deleteById(theId);
 
 	}
 
 	@Override
+	@Transactional
 	public void save(Student theStudent) {
 		studentDAO.save(theStudent);
 

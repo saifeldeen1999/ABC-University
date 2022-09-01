@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="professor")
+@Table(name="professor", schema = "abc_university_db")
 public class Professor {
 	
 	@OneToMany(mappedBy="professor",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})

@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="course")
+@Table(name="course", schema = "abc_university_db")
 public class Course {
 	
 	@Id
@@ -37,7 +37,7 @@ public class Course {
 	@JoinColumn(name="department_id")
 	private Department department;
 	
-	@OneToMany(cascade= {CascadeType.ALL})
+	@OneToMany(cascade= {CascadeType.ALL},fetch=FetchType.EAGER)
 	@JoinColumn(name="course_id")
 	private List<Review> reviews;
 	
