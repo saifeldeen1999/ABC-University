@@ -1,15 +1,26 @@
 package university.springboot.abcUni.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="professor")
 public class Professor {
+	
+	@OneToMany(mappedBy="professor",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
+	private List<Course> courses;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,6 +35,14 @@ public class Professor {
 	
 	@Column(name="email")
 	private String email;
+	
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="professor_detail_id")
+	private ProfessorDetail professorDetail;
+	
+	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@JoinColumn(name="department_id")
+	private Department department;
 	
 	public Professor() {}
 
@@ -67,8 +86,36 @@ public class Professor {
 
 	@Override
 	public String toString() {
-		return "Professor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Professor [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", professorDetail=" + professorDetail + "]";
 	}
+
+	public ProfessorDetail getProfessorDetail() {
+		return professorDetail;
+	}
+
+	public void setProfessorDetail(ProfessorDetail professorDetail) {
+		this.professorDetail = professorDetail;
+	}
+	
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	
+	public void add(Course tempCourse) {
+		if(courses == null) {
+			courses = new ArrayList<>();
+		}
+		
+		courses.add(tempCourse);
+	//	tempCourse.setProfessor(this);
+	}
+
+
 	
 	
 }
