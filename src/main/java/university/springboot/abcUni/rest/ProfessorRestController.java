@@ -1,10 +1,7 @@
 package university.springboot.abcUni.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import university.springboot.abcUni.entity.Department;
 import university.springboot.abcUni.entity.Professor;
-import university.springboot.abcUni.service.DepartmentService;
 import university.springboot.abcUni.service.ProfessorService;
 
 import java.util.List;
