@@ -1,13 +1,14 @@
 package university.springboot.abcUni.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import university.springboot.abcUni.dao.CourseDAO;
+import university.springboot.abcUni.dao.CourseRepository;
 import university.springboot.abcUni.entity.Course;
 
 
@@ -16,28 +17,35 @@ public class CourseServiceImpl implements CourseService {
 	
 	// need to inject customer dao
 	@Autowired
-	private CourseDAO courseDAO;
+	private CourseRepository courseRepository;
+
+	public CourseServiceImpl(CourseRepository theCourseRepository){
+		courseRepository = theCourseRepository;
+	}
 
 	@Override
-	@Transactional
 	public List<Course> findAll() {
-		return courseDAO.findAll();
+		return courseRepository.findAll();
 	}
 
 	@Override
-	@Transactional
 	public Course findById(int theId) {
-		return courseDAO.findById(theId);
+		Optional<Course> result = courseRepository.findById(theId);
+		Course theCourse = null;
+		if(result.isPresent()){
+			theCourse = result.get();
+		}else{
+			throw new RuntimeException("did not found idddd");
+		}
+		return theCourse;
 	}
 
 	@Override
-	@Transactional
 	public void deleteById(int theId) {
-		courseDAO.deleteById(theId);
+		courseRepository.deleteById(theId);
 	}
 
 	@Override
-	@Transactional
-	public void save(Course theCourse) {courseDAO.save(theCourse);}
+	public void save(Course theCourse) {courseRepository.save(theCourse);}
 
 }

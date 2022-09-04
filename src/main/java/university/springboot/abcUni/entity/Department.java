@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="department", schema = "abc_university_db")
+@Table(name="department", schema = "test_university_db")
 public class Department {
 	
 	@Id
@@ -22,8 +22,8 @@ public class Department {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="name")
-	private String name;
+	@Column(name="title")
+	private String title;
 	
 	@OneToMany(mappedBy="department",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
 	private List<Course> courses;
@@ -36,13 +36,13 @@ public class Department {
 	
 	public Department() {}
 
-	public Department(String name) {
-		this.name = name;
+	public Department(String title) {
+		this.title = title;
 	}
 
 	@Override
 	public String toString() {
-		return "Department [id=" + id + ", name=" + name + "]";
+		return "Department [id=" + id + ", title=" + title + "]";
 	}
 
 	public int getId() {
@@ -53,12 +53,12 @@ public class Department {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

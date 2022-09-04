@@ -3,7 +3,6 @@ package university.springboot.abcUni.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import university.springboot.abcUni.entity.Course;
-import university.springboot.abcUni.entity.Student;
 import university.springboot.abcUni.service.CourseService;
 
 import java.util.List;

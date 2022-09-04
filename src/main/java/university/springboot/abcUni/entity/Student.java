@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="student", schema = "abc_university_db")
+@Table(name="student", schema = "test_university_db")
 public class Student {
 	
 	@Id
@@ -49,6 +49,14 @@ public class Student {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+	}
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
 	}
 
 	public int getId() {
