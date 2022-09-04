@@ -1,12 +1,14 @@
 package university.springboot.abcUni.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import university.springboot.abcUni.dao.ProfessorRepository;
 import university.springboot.abcUni.entity.Professor;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired

@@ -1,6 +1,5 @@
 package university.springboot.abcUni.service;
 
-import university.springboot.abcUni.entity.Course;
 import university.springboot.abcUni.entity.Professor;
 
 import java.util.List;

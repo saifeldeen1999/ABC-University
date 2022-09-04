@@ -16,7 +16,6 @@ public class ProfessorRestController {
 
     private ProfessorService professorService;
 
-    @Autowired
     public ProfessorRestController(ProfessorService theProfessorService) {
         professorService = theProfessorService;
     }
