@@ -12,6 +12,6 @@ public interface StudentDAO {
 	
 	public void deleteById(int theId);
 	
-	public void save(Student theStudent);
+	public Student save(Student theStudent);
 	
 }
