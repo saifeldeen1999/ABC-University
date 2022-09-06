@@ -41,7 +41,7 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
-    public void save(Professor theProfessor) {
-        professorRepository.save(theProfessor);
+    public Professor save(Professor theProfessor) {
+        return professorRepository.save(theProfessor);
     }
 }

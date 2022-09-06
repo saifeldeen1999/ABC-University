@@ -19,9 +19,6 @@ import javax.persistence.Table;
 @Table(name="professor", schema = "test_university_db")
 public class Professor {
 	
-	@OneToMany(mappedBy="professor",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
-	private List<Course> courses;
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -43,6 +40,9 @@ public class Professor {
 	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(name="department_id")
 	private Department department;
+
+	@OneToMany(mappedBy="professor",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH,CascadeType.DETACH})
+	private List<Course> courses;
 	
 	public Professor() {}
 

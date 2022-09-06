@@ -5,6 +5,20 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+
+        }
+
+        tr:hover {background-color: lightslategrey;}
+        /*tr:nth-child(even) {background-color: #f2f2f2;}*/
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
         body {
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
@@ -39,13 +53,28 @@
 
 <div class="topnav">
     <a class="active" href="/home/viewData">Home</a>
-    <a href="/student/viewStudents">Student Management System</a>
     <a href="/professor/viewProfessors">Professor Management System</a>
-    <a href="/department/viewDepartments">Department Management System</a>
 </div>
 <div>
-    <h2>Welcome to ABC University</h2>
-</div>
+    <table>
+        <thead>
+        <tr>
+            <th>Professor ID</th>
+            <th>Professor First Name</th>
+            <th>Professor Last Name</th>
+            <th>Email</th>
+
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${professor.id}</td>
+                <td>${professor.firstName}</td>
+                <td>${professor.lastName}</td>
+                <td>${professor.email}</td>
+            </tr>
+        </tbody>
+    </table></div>
 </body>
 
 </html>

@@ -2,10 +2,28 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<html>
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {background-color: lightslategrey;}
+        /*tr:nth-child(even) {background-color: #f2f2f2;}*/
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
         /* Style inputs, select elements and textareas */
         input[type=text], select, textarea{
             width: 100%;
@@ -114,38 +132,53 @@
     <form:form action="${add_student_url}" method="post" modelAttribute="student">
         <div class="row">
             <div class="col-25">
-                <form:label for="email" path="email">Email:</form:label>
+                <label>Email:</label>
             </div>
             <div class="col-75">
-                <form:input type="text" id="email" name="email" path="email" placeholder="Student Email"></form:input>
+                <input type="text" id="email" name="email" value="${student.email}" placeholder="Student Email"/>
             </div>
         </div>
         <div class="row">
             <div class="col-25">
-                <form:label for="firstName" path="firstName">First Name</form:label>
+                <label>First Name</label>
             </div>
             <div class="col-75">
-                <form:input type="text" id="firstName" name="firstName" path="firstName" placeholder="Student First Name"></form:input>
+                <input type="text" id="firstName" name="firstName" value="${student.firstName}" placeholder="Student First Name"/>
             </div>
         </div>
         <div class="row">
             <div class="col-25">
-                <form:label for="lastName" path="lastName">Last Name</form:label>
+                <label>Last Name</label>
             </div>
             <div class="col-75">
-                <form:input type="text" id="lastName" name="lastName" path="lastName" placeholder="Student Last Name"></form:input>
+                <input type="text" id="lastName" name="lastName" value="${student.lastName}" placeholder="Student Last Name"/>
             </div>
         </div>
         <div class="row">
             <div class="col-25">
-                <form:label for="department" path="department">Department</form:label>
+                <label>Department</label>
             </div>
             <div class="col-75">
+<%--                <%--%>
+<%--                    out.print( "<h2 align=\"center\">" + ft.format(dNow) + "</h2>");--%>
+<%--                %>--%>
 
-                <form:select path="department" >
-                    <form:option value="NONE" >Select Department</form:option>
-                    <form:options items="${departments}"></form:options>
-                </form:select>
+<%--                <form:select path="department" value="${student.department}">--%>
+<%--                    <form:option value="NONE" >Select Department</form:option>--%>
+<%--                    <form:options items="${departments}"></form:options>--%>
+<%--                </form:select>--%>
+
+<%--                <h:selectOneMenu value="${department}">--%>
+<%--                    <f:selectItems value="${departments}"/>--%>
+<%--                </h:selectOneMenu>--%>
+
+    <c:forEach items="${departments}" var="dep">
+
+
+            <td>${dep.id}</td>
+            <td>${dep.title}</td>
+
+    </c:forEach>
 
             </div>
         </div>

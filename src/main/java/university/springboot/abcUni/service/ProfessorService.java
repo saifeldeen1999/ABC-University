@@ -12,6 +12,6 @@ public interface ProfessorService {
 	
 	public void deleteById(int theId);
 	
-	public void save(Professor theProfessor);
+	public Professor save(Professor theProfessor);
 	
 }

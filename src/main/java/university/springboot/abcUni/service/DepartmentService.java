@@ -13,6 +13,6 @@ public interface DepartmentService {
 
     public void deleteById(int theId);
 
-    public void save(Department theDepartment);
+    public Department save(Department theDepartment);
 
 }
