@@ -1,11 +1,8 @@
 package university.springboot.abcUni.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name="review", schema = "test_university_db")
@@ -18,6 +15,11 @@ public class Review {
 	
 	@Column(name="comment")
 	private String comment;
+
+
+	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@JoinColumn(name="course_id")
+	private Course course;
 	
 	
 	public Review() {}
@@ -40,6 +42,15 @@ public class Review {
 
 	public final void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	@JsonBackReference
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 
 	@Override

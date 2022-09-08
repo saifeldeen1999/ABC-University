@@ -1,6 +1,11 @@
 package university.springboot.abcUni.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -31,13 +36,13 @@ public class Student {
 	
 	@Column(name="email")
 	private String email;
-	
-	@ManyToMany
-	@JoinTable(
-			name="course_student",
-			joinColumns=@JoinColumn(name="student_id"),
-			inverseJoinColumns=@JoinColumn(name="course_id"))
-	private List<Course> courses;
+	@JsonIgnore
+	@ManyToMany(mappedBy = "enrolledStudents")
+//	@JoinTable(
+//			name="course_student",
+//			joinColumns=@JoinColumn(name="student_id"),
+//			inverseJoinColumns=@JoinColumn(name="course_id"))
+	private Set<Course> courses = new HashSet<>();
 	
 	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(name="department_id")
@@ -50,7 +55,7 @@ public class Student {
 		this.lastName = lastName;
 		this.email = email;
 	}
-
+	@JsonBackReference
 	public Department getDepartment() {
 		return department;
 	}
@@ -58,6 +63,14 @@ public class Student {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+
+//	public List<Course> getCourses() {
+//		return courses;
+//	}
+//
+//	public void setCourses(List<Course> courses) {
+//		this.courses = courses;
+//	}
 
 	public int getId() {
 		return id;
@@ -95,5 +108,8 @@ public class Student {
 	public String toString() {
 		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
 	}
-	
+
+	public Set<Course> getCourses() {
+		return courses;
+	}
 }

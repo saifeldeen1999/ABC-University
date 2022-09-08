@@ -1,5 +1,8 @@
 package university.springboot.abcUni.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,7 +100,8 @@ public class Professor {
 	public void setProfessorDetail(ProfessorDetail professorDetail) {
 		this.professorDetail = professorDetail;
 	}
-	
+
+	@JsonManagedReference
 	public List<Course> getCourses() {
 		return courses;
 	}
@@ -106,16 +110,21 @@ public class Professor {
 		this.courses = courses;
 	}
 	
-	public void add(Course tempCourse) {
-		if(courses == null) {
-			courses = new ArrayList<>();
-		}
-		
-		courses.add(tempCourse);
-	//	tempCourse.setProfessor(this);
+//	public void add(Course tempCourse) {
+//		if(courses == null) {
+//			courses = new ArrayList<>();
+//		}
+//
+//		courses.add(tempCourse);
+//	//	tempCourse.setProfessor(this);
+//	}
+
+	@JsonBackReference
+	public Department getDepartment() {
+		return department;
 	}
 
-
-	
-	
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 }

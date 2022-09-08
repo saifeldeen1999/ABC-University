@@ -2,7 +2,10 @@ package university.springboot.abcUni.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import university.springboot.abcUni.entity.Course;
+import university.springboot.abcUni.entity.Department;
 import university.springboot.abcUni.entity.Review;
+import university.springboot.abcUni.service.CourseService;
 import university.springboot.abcUni.service.ReviewService;
 
 import java.util.List;
@@ -13,10 +16,12 @@ public class ReviewRestController {
 
 
 	private ReviewService reviewService;
+	private CourseService courseService;
 
 	@Autowired
-	public ReviewRestController(ReviewService theReviewService) {
+	public ReviewRestController(ReviewService theReviewService,CourseService theCourseService) {
 		reviewService = theReviewService;
+		courseService = theCourseService;
 	}
 	
 	@GetMapping("reviews")
@@ -54,5 +59,15 @@ public class ReviewRestController {
 		}
 		reviewService.deleteById(reviewId);
 		return "Deleted review id #" + reviewId;
+	}
+
+	@PutMapping("{courseId}/reviews/{reviewId}")
+	public String addReviewToCourse(@PathVariable int reviewId, @PathVariable int courseId){
+		Review review = reviewService.findById(reviewId);
+		Course course = courseService.findById(courseId);
+
+		review.setCourse(course);
+		reviewService.save(review);
+		return "Review successfully added to Course: "+course.getName();
 	}
 }

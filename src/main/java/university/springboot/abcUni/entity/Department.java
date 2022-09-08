@@ -1,5 +1,7 @@
 package university.springboot.abcUni.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="department", schema = "test_university_db")
 public class Department {
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -59,6 +61,31 @@ public class Department {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@JsonManagedReference
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+	@JsonManagedReference
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+	@JsonManagedReference
+	public List<Professor> getProfessors() {
+		return professors;
+	}
+
+	public void setProfessors(List<Professor> professors) {
+		this.professors = professors;
 	}
 	
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import university.springboot.abcUni.entity.Department;
 import university.springboot.abcUni.entity.Student;
+import university.springboot.abcUni.entity.relations.StudentDep;
 import university.springboot.abcUni.service.DepartmentService;
 import university.springboot.abcUni.service.StudentService;
 
@@ -52,15 +53,14 @@ public class StudentRestController {
 		return student;
 	}
 	
-	@PostMapping("students/{departmentId}")
-	public Student addStudent(@RequestBody Student student,@PathVariable int departmentId){
-		Department department = departmentService.findById(departmentId);
-		System.out.println(departmentId);
-		if(department == null) {
-			throw new RuntimeException("ID:" + departmentId + " not found");
-		}
+	@PostMapping("students")
+	public Student addStudent(@RequestBody Student student){
+		//	Department department = departmentService.findById(departmentId);
+//		if(department == null) {
+//			throw new RuntimeException("ID:" + departmentId + " not found");
+//		}
 		student.setId(0); //optional
-		student.setDepartment(department);
+//		student.setDepartment(department);
 		studentService.save(student);
 		 return student;
 	}
@@ -80,4 +80,53 @@ public class StudentRestController {
 		studentService.deleteById(studentId);
 		return "Deleted Student id #" + studentId;
 	}
+
+	//api to enroll student in department by sending student & department id in params
+	@PutMapping("{depId}/students/{studentId}")
+	public Student enrollStudentToDepartment(@PathVariable int depId,@PathVariable int studentId) {
+		Department department = departmentService.findById(depId);
+		Student student = studentService.findById(studentId);
+
+		if(department == null || student == null) {
+			throw new RuntimeException("ID:" + depId + " not found");
+		}
+
+		student.setDepartment(department);
+		studentService.save(student);
+		return student;
+
+	}
+
+	//api to enroll student in department by sending a body with student & department id
+	@PutMapping("students/department")
+	public Student enrollStudentToDepartment(@RequestBody StudentDep request) {
+		Department department = departmentService.findById(request.getDepId());
+		Student student = studentService.findById(request.getStudentId());
+
+		if(department == null || student == null) {
+			throw new RuntimeException("ID:" + " not found");
+		}
+
+		student.setDepartment(department);
+		studentService.save(student);
+		return student;
+
+	}
+
+	//api to enroll student in department by sending student & department id in params
+//	@PutMapping("students/department/{studentId}/{depId}")
+//	public Student studentEnrollDepartment(@PathVariable int depId,@PathVariable int studentId) {
+//		Department department = departmentService.findById(depId);
+//		Student student = studentService.findById(studentId);
+//
+//		if(department == null || student == null) {
+//			throw new RuntimeException("ID:" + depId + " not found");
+//		}
+//
+//		student.setDepartment(department);
+//		studentService.save(student);
+//		return student;
+//
+//	}
+
 }

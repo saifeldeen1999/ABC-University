@@ -1,7 +1,12 @@
 package university.springboot.abcUni.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,7 +30,7 @@ public class Course {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
-	
+
 	@Column(name="name")
 	private String name;
 	
@@ -47,7 +52,8 @@ public class Course {
 			joinColumns=@JoinColumn(name="course_id"),
 			inverseJoinColumns=@JoinColumn(name="student_id")
 			)
-	private List<Student> students;
+	private Set<Student> enrolledStudents = new HashSet<>();
+	//private List<Student> students;
 	
 	public Course() {}
 
@@ -76,12 +82,55 @@ public class Course {
 		this.name = name;
 	}
 	
-	public void add(Review tempReview) {
-		if(reviews == null) {
-			reviews = new ArrayList<>();
-		}
-		
-		reviews.add(tempReview);
+//	public void add(Review tempReview) {
+//		if(reviews == null) {
+//			reviews = new ArrayList<>();
+//		}
+//
+//		reviews.add(tempReview);
+//	}
+
+	@JsonBackReference
+	public Professor getProfessor() {
+		return professor;
 	}
-	
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
+	}
+
+	@JsonBackReference
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	@JsonManagedReference
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void enrollStudent(Student student){
+		enrolledStudents.add(student);
+	}
+
+//	public List<Student> getStudents() {
+//		return students;
+//	}
+//
+//	public void setStudents(List<Student> students) {
+//		this.students = students;
+//	}
+
+
+	public Set<Student> getEnrolledStudents() {
+		return enrolledStudents;
+	}
 }
